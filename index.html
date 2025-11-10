@@ -174,7 +174,7 @@
 </head>
 <body>
     <div class="gallery-container">
-        <h1>Галерея изображений</h1>
+        <h1>Породы собак</h1>
         
         <div class="gallery-wrapper">
             <div class="gallery" id="gallery">
@@ -192,7 +192,7 @@
         <div class="pager">
             <span class="current-page" id="current-page">1</span>
             <span>/</span>
-            <span class="total-pages" id="total-pages">3</span>
+            <span class="total-pages" id="total-pages">8</span>
         </div>
     </div>
     <script>
@@ -230,6 +230,7 @@
                 src: 'https://i.pinimg.com/736x/60/6f/d2/606fd2887bdc9315ef6929fa90447632.jpg', 
                 alt: 'мопс' 
             }
+    
         ];
 
         // Получаем элементы DOM
@@ -251,7 +252,7 @@
             } else if (window.innerWidth <= 1024) {
                 slidesPerView = 2; // Для планшетов
             } else {
-                slidesPerView = 3; // Для десктопа
+slidesPerView = 3; // Для десктопа
             }
             
             updateGallery();
@@ -340,11 +341,9 @@
 
         // Функция для обновления пейджера
         function updatePager() {
-            const totalPages = Math.ceil(images.length / slidesPerView);
-            const currentPage = Math.floor(currentSlide / slidesPerView) + 1;
-            
-            currentPageEl.textContent = currentPage;
-            totalPagesEl.textContent = totalPages;
+            // Теперь показываем номер текущего изображения и общее количество изображений
+            currentPageEl.textContent = currentSlide + 1;
+            totalPagesEl.textContent = images.length;
         }
 
         // Функция для перехода к следующему слайду
@@ -371,7 +370,7 @@
 
         // Назначаем обработчики событий
         prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
+nextBtn.addEventListener('click', nextSlide);
 
         // Обработчик изменения размера окна
         window.addEventListener('resize', updateSlidesPerView);
@@ -381,6 +380,3 @@
     </script>
 </body>
 </html>
-                
-
-
