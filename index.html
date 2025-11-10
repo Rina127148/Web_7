@@ -24,6 +24,12 @@
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 30px;
+            position: relative;
+            /* Фоновое изображение для контейнера */
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         h1 {
             text-align: center;
@@ -35,6 +41,7 @@
             overflow: hidden;
             border-radius: 8px;
             margin-bottom: 20px;
+            padding: 0 60px;
         }
         .gallery {
             display: flex;
@@ -67,7 +74,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(52, 152, 219, 0.8);
+            background-color: #3498db;
             color: white;
             border: none;
             width: 50px;
@@ -80,20 +87,22 @@
             align-items: center;
             transition: background-color 0.3s;
             z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         .arrow:hover {
-            background-color: rgba(41, 128, 185, 0.9);
+            background-color: #2980b9;
         }
         .prev {
-            left: 15px;
+            left: 30px;
         }
         .next {
-            right: 15px;
+            right: 30px;
         }
         .indicators {
             display: flex;
             justify-content: center;
             margin-top: 20px;
+            margin-bottom: 15px;
         }
         .indicator {
             width: 12px;
@@ -108,6 +117,21 @@
             background-color: #3498db;
             transform: scale(1.2);
         }
+        .pager {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-top: 10px;
+        }
+        .current-page {
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        .total-pages {
+            margin: 0 5px;
+        }
         /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
             .slide {
@@ -116,6 +140,9 @@
             .gallery-container {
                 padding: 15px;
             }
+            .gallery-wrapper {
+                padding: 0 40px;
+            }
             .image-container {
                 height: 250px;
             }
@@ -123,6 +150,12 @@
                 width: 40px;
                 height: 40px;
                 font-size: 18px;
+            }
+            .prev {
+                left: 15px;
+            }
+            .next {
+                right: 15px;
             }
         }
         /* Адаптивность для планшетов */
@@ -133,17 +166,20 @@
             .image-container {
                 height: 250px;
             }
+            .gallery-wrapper {
+                padding: 0 50px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="gallery-container">
-        <h1>Породы собак</h1>
+        <h1>Галерея изображений</h1>
         
         <div class="gallery-wrapper">
             <div class="gallery" id="gallery">
                 <!-- Слайды будут добавлены через JavaScript -->
-                </div>
+            </div>
             
             <button class="arrow prev" id="prev-btn">&#10094;</button>
             <button class="arrow next" id="next-btn">&#10095;</button>
@@ -151,6 +187,12 @@
         
         <div class="indicators" id="indicators">
             <!-- Индикаторы будут добавлены через JavaScript -->
+        </div>
+        
+        <div class="pager">
+            <span class="current-page" id="current-page">1</span>
+            <span>/</span>
+            <span class="total-pages" id="total-pages">3</span>
         </div>
     </div>
     <script>
@@ -195,6 +237,8 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const indicatorsContainer = document.getElementById('indicators');
+        const currentPageEl = document.getElementById('current-page');
+        const totalPagesEl = document.getElementById('total-pages');
 
         // Переменные состояния
         let currentSlide = 0;
@@ -277,6 +321,9 @@
             
             // Обновляем индикаторы
             updateIndicators();
+            
+            // Обновляем пейджер
+            updatePager();
         }
 
         // Функция для обновления индикаторов
@@ -289,6 +336,15 @@
                     indicator.classList.remove('active');
                 }
             });
+        }
+
+        // Функция для обновления пейджера
+        function updatePager() {
+            const totalPages = Math.ceil(images.length / slidesPerView);
+            const currentPage = Math.floor(currentSlide / slidesPerView) + 1;
+            
+            currentPageEl.textContent = currentPage;
+            totalPagesEl.textContent = totalPages;
         }
 
         // Функция для перехода к следующему слайду
@@ -326,4 +382,5 @@
 </body>
 </html>
                 
+
 
