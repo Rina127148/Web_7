@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -18,7 +17,6 @@
             background-color: #f5f7fa;
             padding: 20px;
         }
-
         .gallery-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -27,45 +25,50 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 30px;
         }
-
         h1 {
             text-align: center;
             margin-bottom: 30px;
             color: #2c3e50;
         }
-
         .gallery-wrapper {
             position: relative;
             overflow: hidden;
             border-radius: 8px;
             margin-bottom: 20px;
         }
-
         .gallery {
             display: flex;
             transition: transform 0.5s ease;
         }
-
         .slide {
             flex: 0 0 33.333%;
             padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        .slide img {
+        .image-container {
             width: 100%;
             height: 250px;
-            object-fit: cover;
+            overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
         }
-
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .gallery-controls {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .arrow {
             background-color: #3498db;
             color: white;
@@ -81,11 +84,9 @@
             transition: background-color 0.3s;
             margin: 0 15px;
         }
-
         .arrow:hover {
             background-color: #2980b9;
         }
-
         .pager {
             display: flex;
             justify-content: center;
@@ -93,35 +94,32 @@
             font-size: 18px;
             color: #2c3e50;
         }
-
         .current-page {
             font-weight: bold;
             margin: 0 10px;
         }
-
         .total-pages {
             margin: 0 10px;
         }
-
         /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
             .slide {
                 flex: 0 0 100%;
             }
-
             .gallery-container {
                 padding: 15px;
             }
-
-            .slide img {
-                height: 200px;
+            .image-container {
+                height: 250px;
             }
         }
-
         /* Адаптивность для планшетов */
         @media (min-width: 769px) and (max-width: 1024px) {
             .slide {
                 flex: 0 0 50%;
+            }
+            .image-container {
+                height: 250px;
             }
         }
     </style>
@@ -143,21 +141,44 @@
                 <span>/</span>
                 <span class="total-pages" id="total-pages">3</span>
             </div>
-            <button class="arrow" id="next-btn">&#10095;</button>
+<button class="arrow" id="next-btn">&#10095;</button>
         </div>
     </div>
-
     <script>
         // Данные галереи
         const images = [
-            { src: 'https://avatars.mds.yandex.net/i?id=a55648c88224b6d408f1d7d893ac5ff1_l-8985546-images-thumbs&n=33&w=839&h=1258', alt: 'Горный пейзаж' },
-            { src: 'https://avatars.mds.yandex.net/get-mpic/4590616/2a0000019206accd1518d28c53897146305e/orig', alt: 'Лесная тропа' },
-            { src: 'https://avatars.mds.yandex.net/i?id=717b61ace0ac9b0b874e8502f122a172_l-9290563-images-thumbs&n=33&w=842&h=1258', alt: 'Скалистый берег' },
-            { src: 'https://cdn1.ozone.ru/s3/multimedia-1-3/7536803439.jpg', alt: 'Зимний лес' },
-            { src: 'https://ru-images-s.kinorium.com/movie/1080/11995865.jpg?1742905950', alt: 'Мост через реку' },
-            { src: 'https://i.pinimg.com/736x/b7/d6/74/b7d674581f7afa877d3e289051bd978a.jpg', alt: 'Пустынный пейзаж' },
-            { src: 'https://kuban24.tv/wp-content/uploads/2024/08/Screenshot_22-2.jpg', alt: 'Городской вид' },
-            { src: 'https://otvet.imgsmail.ru/download/188296142_c571398305cc14af21401e5315801efd.jpg', alt: 'Цветущее поле' }
+            { 
+                src: 'https://avatars.mds.yandex.net/i?id=a55648c88224b6d408f1d7d893ac5ff1_l-8985546-images-thumbs&n=33&w=839&h=1258', 
+                alt: 'Горный пейзаж' 
+            },
+            { 
+                src: 'https://avatars.mds.yandex.net/get-mpic/4590616/2a0000019206accd1518d28c53897146305e/orig', 
+                alt: 'Лесная тропа' 
+            },
+            { 
+                src: 'https://avatars.mds.yandex.net/i?id=717b61ace0ac9b0b874e8502f122a172_l-9290563-images-thumbs&n=33&w=842&h=1258', 
+                alt: 'Скалистый берег' 
+            },
+            { 
+                src: 'https://cdn1.ozone.ru/s3/multimedia-1-3/7536803439.jpg', 
+                alt: 'Зимний лес' 
+            },
+            { 
+                src: 'https://ru-images-s.kinorium.com/movie/1080/11995865.jpg?1742905950', 
+                alt: 'Мост через реку' 
+            },
+            { 
+                src: 'https://i.pinimg.com/736x/b7/d6/74/b7d674581f7afa877d3e289051bd978a.jpg', 
+                alt: 'Пустынный пейзаж' 
+            },
+            { 
+                src: 'https://kuban24.tv/wp-content/uploads/2024/08/Screenshot_22-2.jpg', 
+                alt: 'Городской вид' 
+            },
+            { 
+                src: 'https://otvet.imgsmail.ru/download/188296142_c571398305cc14af21401e5315801efd.jpg', 
+                alt: 'Цветущее поле' 
+            }
         ];
 
         // Получаем элементы DOM
@@ -194,11 +215,15 @@
                 const slide = document.createElement('div');
                 slide.className = 'slide';
                 
+                const container = document.createElement('div');
+                container.className = 'image-container';
+                
                 const img = document.createElement('img');
                 img.src = image.src;
                 img.alt = image.alt;
                 
-                slide.appendChild(img);
+                container.appendChild(img);
+                slide.appendChild(container);
                 gallery.appendChild(slide);
             });
             
@@ -219,7 +244,6 @@
             const translateX = -currentSlide * (100 / slidesPerView);
             gallery.style.transform = `translateX(${translateX}%)`;
         }
-
         // Функция для перехода к следующему слайду
         function nextSlide() {
             const totalPages = Math.ceil(images.length / slidesPerView);
